@@ -1,68 +1,132 @@
 #include <stdio.h>
-#define MAX 5
+#include <stdlib.h>
 
-int stack[MAX];
-int top=-1;
+#define MAX 5   // Maximum size of stack
 
-// push
+int stack[MAX];   // Array to store stack elements
+int top = -1;     // Top pointer (-1 means stack is empty)
 
-void push(int value){
-    if(top == MAX-1){
-        printf("Stack Overflow");
+
+// -------------------- PUSH OPERATION --------------------
+void push(int value) {
+
+    // Check if stack is full
+    if (top == MAX - 1) {
+        printf("Stack Overflow \n");
+        return;
     }
-    else
-    {
-        top++;
-        stack[top]=value;
-        printf("%d pushed \n",value);
+
+    // Move top one position up
+    top++;
+
+    // Insert value at new top position
+    stack[top] = value;
+
+    printf("%d pushed into stack ✅\n", value);
+}
+
+
+// -------------------- POP OPERATION --------------------
+void pop() {
+
+    // Check if stack is empty
+    if (top == -1) {
+        printf("Stack Underflow \n");
+        return;
+    }
+
+    // Print the element which will be removed
+    printf("%d popped from stack\n", stack[top]);
+
+    // Move top down (remove element logically)
+    top--;
+}
+
+
+// -------------------- PEEK OPERATION --------------------
+void peek() {
+
+    // Check if stack is empty
+    if (top == -1) {
+        printf("Stack is empty\n");
+        return;
+    }
+
+    // Show the top element without removing it
+    printf("Top element is: %d\n", stack[top]);
+}
+
+
+// -------------------- DISPLAY OPERATION --------------------
+void display() {
+
+    // Check if stack is empty
+    if (top == -1) {
+        printf("Stack is empty\n");
+        return;
+    }
+
+    printf("Stack elements (top to bottom):\n");
+
+    // Print elements from top to bottom
+    for (int i = top; i >= 0; i--) {
+        printf("%d\n", stack[i]);
     }
 }
 
-// pop
 
-void pop(){
-    if(top==-1){
-        printf("Stack Underflow");
-    }
-    else{
-        printf("%d popped \n",stack[top]);
-        top--;   
-    }
-}
+// -------------------- MAIN FUNCTION --------------------
+int main() {
+    int choice, value;
 
-// Peek
-void peek(){
-    if(top == -1){
-        printf("stack is Empty\n");
-    }
-    else{
-        printf("Top Element:%d \n",stack[top]);
-    }
-}
+    // Infinite loop for menu-driven program
+    while (1) {
 
-// Display
+        // Display menu
+        printf("\n===== STACK MENU =====\n");
+        printf("1. Push\n");
+        printf("2. Pop\n");
+        printf("3. Peek\n");
+        printf("4. Display\n");
+        printf("5. Exit\n");
 
-void display(){
-    if(top == -1){
-        printf("stack empty\n");
-    }
-    else{
-        for(int i=top;i>=0;i--){
-            printf("%d\n",stack[i]);
+        // Take user choice
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        // Perform operation based on user input
+        switch (choice) {
+
+            case 1:
+                // Take value from user for push
+                printf("Enter value: ");
+                scanf("%d", &value);
+                push(value);
+                break;
+
+            case 2:
+                // Remove top element
+                pop();
+                break;
+
+            case 3:
+                // Show top element
+                peek();
+                break;
+
+            case 4:
+                // Display all elements
+                display();
+                break;
+
+            case 5:
+                // Exit program
+                printf("Exiting...\n");
+                exit(0);
+
+            default:
+                // Invalid choice handling
+                printf("Invalid choice \n");
         }
     }
-}
-
-int main(){
-    push(10);
-    push(20);
-    push(30);
-
-    display();
-    peek();
-
-    pop();
-    display();
-
-    return 0;
 }
