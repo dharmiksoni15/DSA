@@ -1,3 +1,4 @@
+/* Queue Using Array*/
 #include <stdio.h>
 
 #define MAX 5   // Maximum size of the queue
